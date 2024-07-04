@@ -15,7 +15,8 @@ def DataBase(query:str):
 def root():
     return{"200"}
 
-@app.get("/livros")
+@app.get("/get_books")
 def get_all_books():
     query = "SELECT * FROM tb_books"
     return DataBase(query)
+
