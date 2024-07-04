@@ -1,0 +1,4 @@
+##   venv  ##
+/api-eco/*
+## pycache ##
+/__pycache__/*
