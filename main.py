@@ -64,28 +64,5 @@ def get_all_request():
     return DataBase(query)
 
 @app.post("/update_request")
-def update_request(request_id:int, returned:bool, name:str = "", cpf:str="", age:int=0, book_id:int=0, address:str = "", return_day:str = ""):
-    
-    data = ()
-    query = query = f'''
-            UPDATE tb_pedidos
-            SET N_AGE = ?, 
-            WHERE N_ID = {request_id}
-        '''
-    change_name = False; change_cpf=False; change_age=False; change_book_id = False; change_addr = False; change_RD = False;
-    if len(name) != 0:
-        data += name
-    if len(cpf) != 0:
-        data += cpf        
-    if age != 0:
-        data += str(age)
-    if book_id != 0:
-        data += str(book_id)
-    if len(address) != 0:
-        data += address
-    if len(return_day) != 0:
-        data += return_day
-        
-    return data
-    
-    
+def update_request():
+    pass
