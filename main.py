@@ -64,66 +64,28 @@ def get_all_request():
     return DataBase(query)
 
 @app.post("/update_request")
-def update_request(request_id:int, name:str = "", cpf:str="", age:int=None, book_id:int=None, returned:bool=None, address:str = "", return_day:str = "" ):
+def update_request(request_id:int, returned:bool, name:str = "", cpf:str="", age:int=0, book_id:int=0, address:str = "", return_day:str = ""):
     
     data = ()
-    
+    query = query = f'''
+            UPDATE tb_pedidos
+            SET N_AGE = ?, 
+            WHERE N_ID = {request_id}
+        '''
+    change_name = False; change_cpf=False; change_age=False; change_book_id = False; change_addr = False; change_RD = False;
     if len(name) != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET T_NAME = {name}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id)
-        return DataBase(query)
+        data += name
     if len(cpf) != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET T_CPF = {cpf}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, cpf)
-        return DataBase(query)
+        data += cpf        
     if age != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET N_AGE = {age}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, age)
-        return DataBase(query)
+        data += str(age)
     if book_id != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET N_ID_BOOKS = {book_id}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, book_id)
-        return DataBase(query)
+        data += str(book_id)
     if len(address) != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET T_ADDRESS = {address}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, address)
-        return DataBase(query)
+        data += address
     if len(return_day) != 0:
-        query = f'''
-            UPDATE tb_pedidos
-            SET T_REC_DAY = {return_day}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, return_day)
-        return DataBase(query)
-    if returned != False:
-        returned_num = 0
-        if returned:
-            returned_num = 1
-        query = f'''
-            UPDATE tb_pedidos
-            SET B_RETURNED = {returned_num}
-            WHERE N_ID = {request_id}
-        '''
-        data = (request_id, return_day)
-        return DataBase(query)
+        data += return_day
+        
+    return data
+    
+    
